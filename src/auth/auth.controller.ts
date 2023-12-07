@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateUserDto } from '../shared/dto/create-user.dto';
@@ -22,8 +22,8 @@ export class AuthController {
   }
 
   @ApiOperation({ summary: 'Verify token' })
-  @Get('verify')
-  verify(@Body() token: string) {
+  @Get('verify/:token')
+  verify(@Param('token') token: string) {
     return this.authService.verify(token);
   }
 }

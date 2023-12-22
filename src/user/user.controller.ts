@@ -1,7 +1,9 @@
-import { Controller, Delete, Get, Param, Put, UseGuards } from '@nestjs/common';
+import {Body, Controller, Delete, Get, Param, Put, UseGuards} from '@nestjs/common';
 import { UserService } from './user.service';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '../auth/auth.guard';
+import {UpdateUserDto} from "../shared/dto/update-user.dto";
+import {CreateUserDto} from "../shared/dto/create-user.dto";
 @ApiTags('User controller')
 @UseGuards(AuthGuard)
 @Controller('users')
@@ -40,7 +42,7 @@ export class UserController {
 
   @ApiOperation({ summary: 'Update user' })
   @Put(':id')
-  update(@Param('id') id: string) {
-    return this.userService.update(id);
+  update(@Param('id') id: string, @Body() updateUserDto: CreateUserDto) {
+    return this.userService.update(id, updateUserDto);
   }
 }

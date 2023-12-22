@@ -2,6 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from '../shared/entities/user.entity';
+import {UpdateUserDto} from "../shared/dto/update-user.dto";
 
 @Injectable()
 export class UserService {
@@ -41,11 +42,11 @@ export class UserService {
     return existingUser;
   }
 
-  async update(id: string) {
+  async update(id: string, updateUserDto: UpdateUserDto) {
     const existingUser = await this.userModel
       .findByIdAndUpdate(
         id,
-        { $set: {} },
+        { $set: { updateUserDto } },
         { new: true, useFindAndModify: false },
       )
       .exec();

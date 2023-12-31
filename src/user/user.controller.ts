@@ -1,9 +1,17 @@
-import {Body, Controller, Delete, Get, Param, Put, UseGuards} from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Put,
+  UseGuards,
+} from '@nestjs/common';
 import { UserService } from './user.service';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '../auth/auth.guard';
-import {UpdateUserDto} from "../shared/dto/update-user.dto";
-import {CreateUserDto} from "../shared/dto/create-user.dto";
+import { CreateUserDto } from '../shared/dto/create-user.dto';
+
 @ApiTags('User controller')
 @UseGuards(AuthGuard)
 @Controller('users')

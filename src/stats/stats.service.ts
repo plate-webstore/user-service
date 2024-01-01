@@ -18,7 +18,7 @@ export class StatsService implements NestMiddleware {
       const apiCallSummary = {
         timestamp: new Date().toISOString(),
         method: method,
-        url: path,
+        url: req.route.path,
         serviceName: 'user-service',
       };
 

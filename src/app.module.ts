@@ -16,6 +16,9 @@ import { SharedModule } from './shared/shared.module';
 import { AuthModule } from './auth/auth.module';
 import { LoggingModule } from './logging/logging.module';
 import { RequestLoggingService } from './logging/request-logging.service';
+import { HttpModule } from '@nestjs/axios';
+import { StatsService } from './stats/stats.service';
+import { StatsModule } from './stats/stats.module';
 
 configDotenv();
 
@@ -27,6 +30,8 @@ configDotenv();
     SharedModule,
     AuthModule,
     LoggingModule,
+    StatsModule,
+    HttpModule,
   ],
   controllers: [AppController],
   providers: [AppService, EncryptionService],
@@ -34,7 +39,7 @@ configDotenv();
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer): any {
     consumer
-      .apply(RequestLoggingService)
+      .apply(RequestLoggingService, StatsService)
       .forRoutes({ path: '*', method: RequestMethod.ALL });
   }
 }

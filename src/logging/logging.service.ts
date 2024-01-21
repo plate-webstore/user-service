@@ -19,10 +19,14 @@ export class LoggingService {
       await this.initRabbitMQ();
     }
 
-    this.channel.sendToQueue(
-      this.loggingQueueName,
-      Buffer.from(JSON.stringify(message)),
-    );
+    try {
+      this.channel.sendToQueue(
+        this.loggingQueueName,
+        Buffer.from(JSON.stringify(message)),
+      );
+    } catch (error) {
+      console.error('Error connecting to RabbitMQ:', error);
+    }
   }
 
   private async initRabbitMQ(): Promise<void> {

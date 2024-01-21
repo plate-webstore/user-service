@@ -35,7 +35,8 @@ export class AuthService {
       wishListId: '',
     });
 
-    return await newUser.save();
+    const savedUser = await newUser.save();
+    return await this.signIn({ email, password });
   }
 
   async signIn(signInUserDto: SignInUserDto) {
